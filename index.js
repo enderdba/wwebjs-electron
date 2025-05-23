@@ -1,10 +1,9 @@
 'use strict';
-
 const Constants = require('./src/util/Constants');
 
 module.exports = {
     Client: require('./src/Client'),
-    
+    ElectronPuppeteer: require('./src/ElectronPuppeteer'),
     version: require('./package.json').version,
 
     // Structures

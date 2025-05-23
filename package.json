@@ -1,7 +1,7 @@
 {
   "name": "wwebjs-electron",
   "version": "1.28.0",
-  "description": "Library for interacting with the WhatsApp Web API through electron",
+  "description": "Library for interacting with the WhatsApp Web API through electron and puppeteer",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AndyTargino/wwebjs-electron.git"
+    "url": "git+https://github.com/enderdba/wwebjs-electron.git"
   },
   "keywords": [
     "electron",
@@ -23,12 +23,12 @@
     "client",
     "node"
   ],
-  "author": "Anderson Targino",
+  "author": "Ender Bohorquez",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/AndyTargino/wwebjs-electron/issues"
+    "url": "https://github.com/enderdba/wwebjs-electron/issues"
   },
-  "homepage": "https://github.com/AndyTargino/wwebjs-electron",
+  "homepage": "https://github.com/enderdba/wwebjs-electron",
   "dependencies": {
     "@pedroslopez/moduleraid": "^5.0.2",
     "fluent-ffmpeg": "^2.1.2",
@@ -36,7 +36,8 @@
     "mime": "^3.0.0",
     "node-fetch": "^2.6.1",
     "node-webpmux": "^3.1.0",
-    "puppeteer-in-electron": "^3.0.5"
+    "puppeteer-core": "^18.2.1",
+    "get-port": "^7.1.0"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.12",

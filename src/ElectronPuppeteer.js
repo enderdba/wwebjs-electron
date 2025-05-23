@@ -1,6 +1,5 @@
 'use strict';
 
-const getPort = require('get-port');
 const http = require('http');
 const { v4: uuidv4 } = require('uuid');
 
@@ -24,6 +23,7 @@ class ElectronPuppeteer {
     static async initialize(app, port = 0) {
         if (!app) throw new Error('Invalid app instance.');
         if (app.isReady()) throw new Error('Must be called before app.whenReady');
+        const getPort = await import('get-port').then(mod => mod.default);
 
         const existingPort = app.commandLine.getSwitchValue('remote-debugging-port');
         if (existingPort) {

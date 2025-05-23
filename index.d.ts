@@ -411,38 +411,16 @@ declare namespace WAWebJS {
     }
 
     export class ElectronPuppeteer {
-        /**
-         * Returns the remote debugging port used by the connected browser instance.
-         * This value is only available after calling `initialize(app)`.
-         * @readonly
-         */
-        readonly debugPort: number;
+        static readonly debugPort: number;
 
-        /**
-         * Configures the remote debugging port for the Electron app instance.
-         * Must be called before the app is ready.
-         * @param app The Electron app instance.
-         * @param port The desired port number. If 0 or undefined, a random available port will be used.
-         */
-        initialize(app: ElectronApp, port?: number): Promise<void>;
+        static initialize(app: Electron.App, port?: number): Promise<void>;
 
-        /**
-         * Connects to the browser instance launched by Electron via its remote debugging port.
-         * @param app The Electron app instance (used to get the debugging port if not already known).
-         * @param puppeteerInstance The puppeteer-core instance (e.g., `require('puppeteer-core')`).
-         * @returns A Promise that resolves to the Puppeteer Browser instance.
-         */
-        connect(app: ElectronApp, puppeteerInstance: typeof PuppeteerCore): Promise<PuppeteerCore.Browser>;
+        static connect(app: Electron.App, puppeteerInstance: typeof import('puppeteer-core')): Promise<import('puppeteer-core').Browser>;
 
-        /**
-         * Retrieves the Puppeteer Page instance associated with a specific Electron BrowserWindow or BrowserView.
-         * @param browser The Puppeteer browser instance (obtained from `connect`).
-         * @param window The Electron BrowserWindow or BrowserView.
-         * @returns A Promise that resolves to the Puppeteer Page instance.
-         */
-        getPage(browser: PuppeteerCore.Browser, window: BrowserWindow | BrowserView): Promise<PuppeteerCore.Page>;
-
-
+        static getPage(
+            browser: import('puppeteer-core').Browser,
+            window: Electron.BrowserWindow | Electron.BrowserView
+        ): Promise<import('puppeteer-core').Page>;
     }
 
     /** Current connection information */

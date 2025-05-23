@@ -1,14 +1,13 @@
 
 import { EventEmitter } from 'events'
 import { RequestInit } from 'node-fetch'
-import * as puppeteer from 'puppeteer'
 import InterfaceController from './src/util/InterfaceController'
-
+import type { Browser, Page } from 'puppeteer-core';
 declare namespace WAWebJS {
 
     export class Client extends EventEmitter {
         constructor(
-            browser: puppeteer.Browser,
+            browser: Browser,
             view: Electron.BrowserView,
             options: ClientOptions
         );
@@ -17,10 +16,10 @@ declare namespace WAWebJS {
         public info: ClientInfo
 
         /** Puppeteer page running WhatsApp Web */
-        pupPage?: puppeteer.Page
+        pupPage?: Page
 
         /** Puppeteer browser running WhatsApp Web */
-        pupBrowser?: puppeteer.Browser
+        pupBrowser?: Browser
 
         /** Client interactivity interface */
         interface?: InterfaceController

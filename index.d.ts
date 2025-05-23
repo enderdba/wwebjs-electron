@@ -410,7 +410,7 @@ declare namespace WAWebJS {
         ) => void): this
     }
 
-    export interface ElectronPuppeteer {
+    export class ElectronPuppeteer {
         /**
          * Returns the remote debugging port used by the connected browser instance.
          * This value is only available after calling `initialize(app)`.

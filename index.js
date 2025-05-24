@@ -1,7 +1,7 @@
 'use strict';
 const Constants = require('./src/util/Constants');
 
-module.exports = {
+const exportsObject = {
     Client: require('./src/Client'),
     ElectronPuppeteer: require('./src/ElectronPuppeteer'),
     version: require('./package.json').version,
@@ -22,11 +22,14 @@ module.exports = {
     List: require('./src/structures/List'),
     Buttons: require('./src/structures/Buttons'),
     Broadcast: require('./src/structures/Broadcast'),
-    
+
     // Auth Strategies
     NoAuth: require('./src/authStrategies/NoAuth'),
     LocalAuth: require('./src/authStrategies/LocalAuth'),
     RemoteAuth: require('./src/authStrategies/RemoteAuth'),
-    
+
     ...Constants
 };
+
+module.exports = exportsObject;
+module.exports.default = exportsObject;

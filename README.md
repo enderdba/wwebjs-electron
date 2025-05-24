@@ -36,8 +36,10 @@ import { Client, ElectronPuppeteer } from '@enderdba/wwebjs-electron';
 let win: BrowserWindow;
 let client: Client;
 
+await ElectronPuppeteer.initialize(app); // ⬅️ MUST be before app.isReady()
+
 app.whenReady().then(async () => {
-  await ElectronPuppeteer.initialize(app); // ⬅️ MUST be before app.isReady()
+
   await app.whenReady();
 
   const browser = await ElectronPuppeteer.connect(app, puppeteer);

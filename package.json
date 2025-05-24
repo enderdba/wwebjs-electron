@@ -32,15 +32,17 @@
   "dependencies": {
     "@pedroslopez/moduleraid": "^5.0.2",
     "fluent-ffmpeg": "^2.1.2",
+    "get-port": "^7.1.0",
     "jsqr": "^1.3.1",
     "mime": "^3.0.0",
     "node-fetch": "^2.6.1",
     "node-webpmux": "^3.1.0",
     "puppeteer-core": "^18.2.1",
-    "get-port": "^7.1.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.12",
+    "@types/uuid": "^8.3.4",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "dotenv": "^16.0.0",

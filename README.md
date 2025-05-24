@@ -104,7 +104,7 @@ This is a custom fork of [`wwebjs-electron`](https://github.com/AndyTargino/wweb
 - Eliminate `puppeteer-in-electron`
 - Improve support for `BrowserView` in multi-session contexts
 - Work reliably with `puppeteer-core` and Electron's remote-debugging port
-- Integrate better with TypeScript + Vite
+- Integrate better with TypeScript
 
 Maintained by [@enderdba](https://github.com/enderdba)
 

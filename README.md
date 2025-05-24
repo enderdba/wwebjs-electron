@@ -39,9 +39,6 @@ let client: Client;
 await ElectronPuppeteer.initialize(app); // ⬅️ MUST be before app.isReady()
 
 app.whenReady().then(async () => {
-
-  await app.whenReady();
-
   const browser = await ElectronPuppeteer.connect(app, puppeteer);
 
   win = new BrowserWindow({

@@ -1,6 +1,6 @@
 {
   "name": "@enderdba/wwebjs-electron",
-  "version": "1.28.2",
+  "version": "1.28.3",
   "description": "Library for interacting with the WhatsApp Web API through electron and puppeteer",
   "main": "./index.js",
   "typings": "./index.d.ts",

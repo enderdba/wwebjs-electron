@@ -262,25 +262,21 @@ class Client extends EventEmitter {
      * Sets up events and requirements, kicks off authentication request
      */
     async initialize() {
-
         await this.authStrategy.beforeBrowserInitialized();
 
-        if (!this.pupBrowser || !this.browserWindow) {
-            throw new Error('No pup browser or browser window provided');
+        if (!this.pupBrowser || !this.browserWindow) { // browserWindow is the Electron BrowserView
+            throw new Error('No pupBrowser or Electron BrowserView provided to Client constructor');
         }
 
         const page = await ElectronPuppeteer.getPage(this.pupBrowser, this.browserWindow);
-
-        this.pupPage = page; 
+        this.pupPage = page;
 
         if (this.options.proxyAuthentication !== undefined) {
-            await page.authenticate(this.options.proxyAuthentication);
+            await this.pupPage.authenticate(this.options.proxyAuthentication);
         }
 
-        await page.setUserAgent(this.options.userAgent);
-        if (this.options.bypassCSP) await page.setBypassCSP(true);
-
-        this.pupPage = page;
+        await this.pupPage.setUserAgent(this.options.userAgent);
+        if (this.options.bypassCSP) await this.pupPage.setBypassCSP(true);
 
         await this.authStrategy.afterBrowserInitialized();
         await this.initWebVersionCache();
@@ -758,28 +754,63 @@ class Client extends EventEmitter {
      * Closes the client
      */
     async destroy() {
-        await this.pupBrowser.close();
-        await this.authStrategy.destroy();
+        console.log('[Client.js Modified] Attempting to destroy client session.');
+        if (this.pupPage && !this.pupPage.isClosed()) {
+            try {
+                await this.pupPage.close();
+                console.log('[Client.js Modified] pupPage closed successfully in destroy.');
+            } catch (e) {
+                console.error('[Client.js Modified] Error closing pupPage in destroy:', e.message);
+            }
+        }
+        this.pupPage = null;
+
+        if (this.authStrategy && typeof this.authStrategy.destroy === 'function') {
+            try {
+                await this.authStrategy.destroy();
+                console.log('[Client.js Modified] Auth strategy destroyed.');
+            } catch (e) {
+                console.error('[Client.js Modified] Error destroying auth strategy:', e.message);
+            }
+        }
+        this.emit('session-destroyed');
     }
 
     /**
      * Logs out the client, closing the current session
      */
     async logout() {
-        await this.pupPage.evaluate(() => {
-            if (window.Store && window.Store.AppState && typeof window.Store.AppState.logout === 'function') {
-                return window.Store.AppState.logout();
+        console.log('[Client.js Modified] Attempting to logout client session.');
+        if (this.pupPage && !this.pupPage.isClosed()) {
+            try {
+                await this.pupPage.evaluate(() => {
+                    if (window.Store && window.Store.AppState && typeof window.Store.AppState.logout === 'function') {
+                        return window.Store.AppState.logout();
+                    }
+                });
+                console.log('[Client.js Modified] Evaluated page logout.');
+            } catch (e) {
+                console.error('[Client.js Modified] Error evaluating page logout:', e.message);
             }
-        });
-        await this.pupBrowser.close();
 
-        let maxDelay = 0;
-        while (this.pupBrowser.isConnected() && (maxDelay < 10)) { // waits a maximum of 1 second before calling the AuthStrategy
-            await new Promise(resolve => setTimeout(resolve, 100));
-            maxDelay++;
+            try {
+                await this.pupPage.close();
+                console.log('[Client.js Modified] pupPage closed successfully in logout.');
+            } catch (e) {
+                console.error('[Client.js Modified] Error closing pupPage in logout:', e.message);
+            }
         }
+        this.pupPage = null;
 
-        await this.authStrategy.logout();
+        if (this.authStrategy && typeof this.authStrategy.logout === 'function') {
+            try {
+                await this.authStrategy.logout();
+                console.log('[Client.js Modified] Auth strategy logged out.');
+            } catch (e) {
+                console.error('[Client.js Modified] Error logging out auth strategy:', e.message);
+            }
+        }
+        this.emit('session-logged-out');
     }
 
     /**

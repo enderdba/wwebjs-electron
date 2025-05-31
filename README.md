@@ -100,11 +100,11 @@ You can save partitions in a JSON, SQLite, anywhere, just make sure you persist 
 
 This is a custom fork of [`wwebjs-electron`](https://github.com/AndyTargino/wwebjs-electron), with some tweaks for:
 
-- Eliminate `puppeteer-in-electron`
-- Improve support for `BrowserView` in multi-session contexts
-- Work reliably with `puppeteer-core` and Electron's remote-debugging port
-- Integrate better with TypeScript
-
+- Eliminate `puppeteer-in-electron` dependency since it's integrated now.
+- Improve support for `BrowserView` in multi-session contexts.
+- Work reliably with `puppeteer-core` and Electron's remote-debugging port.
+- Integrate better with TypeScript.
+- Doesn't close out the entire browser, just the page that renders Whatsapp.
 Maintained by [@enderdba](https://github.com/enderdba)
 
 ---
